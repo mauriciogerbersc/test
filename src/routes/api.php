@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductsListController;
 use App\Http\Controllers\SalesListController;
+use App\Http\Controllers\SalesStoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::group(['prefix' =>  'product'], function() {
     Route::get('/', ProductsListController::class)->name('products.all');
 });
 
-Route::group(['prefix' =>  'sale'], function() {
+Route::group(['prefix' =>  'sales'], function() {
     Route::get('/', SalesListController::class)->name('sales.all');
+    Route::post('/', SalesStoreController::class)->name('sales.store');
 });
