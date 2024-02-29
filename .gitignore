@@ -1,0 +1,7 @@
+src/node_modules
+src/vendor
+storage/**
+storage/framework/cache/**
+storage/framework/sessions/**
+storage/framework/views/**
+mysql
