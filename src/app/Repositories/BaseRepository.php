@@ -22,8 +22,14 @@ abstract class BaseRepository implements BaseRepositoryContract
         return $this->model->with($relation)->get();
     }
 
-    public function getByAttribute(string $field, string $attribute): Collection
+    public function getByAttribute(string $field, string $attribute, array $relation = []): Collection
     {
-        return $this->model->where($field, $attribute)->get();
+        $sql = $this->model->where($field, $attribute);
+
+        if (! empty($relation)) {
+            $sql->with($relation);
+        }
+
+        return $sql->get();
     }
 }

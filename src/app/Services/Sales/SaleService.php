@@ -44,7 +44,9 @@ class SaleService implements SaleServiceContract
      */
     public function get(): array
     {
-        return $this->saleRepository->getWithRelation('products')->toArray();
+        $getSales = $this->saleRepository->getSales(['saleItem', 'saleItem.product'])->toArray();
+
+        return $getSales;
     }
 
     /**
@@ -60,6 +62,17 @@ class SaleService implements SaleServiceContract
         $this->saleItems($params, $sale['sale_id']);
 
         return $sale;
+    }
+
+    /**
+     * @param string $sale_id
+     * @return array
+     */
+    public function getById(string $sale_id): array
+    {
+        $getSale = $this->saleRepository->getByAttribute('sale_id', $sale_id, ['saleItem', 'saleItem.product'])->toArray();
+
+        return $getSale;
     }
 
     /**

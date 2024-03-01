@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateSaleRequest;
 use App\Services\Sales\Contracts\SaleServiceContract;
 use Exception;
-use Illuminate\Http\{
-    Request, JsonResponse};
+use Illuminate\Http\JsonResponse;
 
-class SalesStoreController extends Controller
+class SaleCancelController extends Controller
 {
     /**
      * @var SaleServiceContract $saleService
@@ -24,15 +22,12 @@ class SalesStoreController extends Controller
     }
 
     /**
-     * @param CreateSaleRequest $request
      * @return JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(string $saleId): JsonResponse
     {
         try {
-            $store = $this->saleService->create($request->all());
-
-            return response()->json($store, 200);
+            dd($saleId);
         } catch (Exception $ex) {
             return response()->json([
                 'message' => $ex

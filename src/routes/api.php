@@ -3,7 +3,8 @@
 use App\Http\Controllers\ProductsListController;
 use App\Http\Controllers\SalesListController;
 use App\Http\Controllers\SalesStoreController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\SaleCancelController;
+use App\Http\Controllers\SaleConsultController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,4 +26,6 @@ Route::group(['prefix' =>  'product'], function() {
 Route::group(['prefix' =>  'sales'], function() {
     Route::get('/', SalesListController::class)->name('sales.all');
     Route::post('/', SalesStoreController::class)->name('sales.store');
+    Route::get('/{sale_id}', SaleConsultController::class);
+    Route::delete('/{sale_id}', SaleCancelController::class);
 });
