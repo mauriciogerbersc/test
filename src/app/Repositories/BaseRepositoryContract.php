@@ -14,4 +14,6 @@ interface BaseRepositoryContract
     public function getWithRelation(string $relation);
 
     public function getByAttribute(string $field, string $attribute, array $relation = []): Collection;
+
+    public function updateById(array $data, array $field);
 }

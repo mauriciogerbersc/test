@@ -65,14 +65,34 @@ class SaleService implements SaleServiceContract
     }
 
     /**
-     * @param string $sale_id
+     * @param string $saleId
      * @return array
      */
-    public function getById(string $sale_id): array
+    public function getById(string $saleId): array
     {
-        $getSale = $this->saleRepository->getByAttribute('sale_id', $sale_id, ['saleItem', 'saleItem.product'])->toArray();
+        $getSale = $this->saleRepository->getByAttribute('sale_id', $saleId, ['saleItem', 'saleItem.product'])->toArray();
 
         return $getSale;
+    }
+
+    /**
+     * @param string $saleId
+     * @return boolean|null
+     */
+    public function cancelSale(string $saleId): ?bool
+    {
+        $sale = $this->getById($saleId);
+
+        if (empty($sale))
+            return false;
+
+        $update = $this->saleRepository->updateById(['status' => 'cancelled'], ['sale_id' => $saleId]);
+
+        if (! $update) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

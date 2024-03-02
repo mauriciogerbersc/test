@@ -32,4 +32,10 @@ abstract class BaseRepository implements BaseRepositoryContract
 
         return $sql->get();
     }
+
+    public function updateById(array $data, array $field)
+    {
+        return $this->model->where($field)
+            ->update($data);
+    }
 }

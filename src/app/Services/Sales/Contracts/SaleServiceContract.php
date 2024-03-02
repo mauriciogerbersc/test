@@ -8,5 +8,7 @@ interface SaleServiceContract
 
     public function create(array $params): array;
 
-    public function getById(string $sale_id): array ;
+    public function getById(string $saleId): array;
+
+    public function cancelSale(string $saleId): ?bool;
 }

@@ -27,7 +27,13 @@ class SaleCancelController extends Controller
     public function __invoke(string $saleId): JsonResponse
     {
         try {
-            dd($saleId);
+            $cancelSale = $this->saleService->cancelSale($saleId);
+
+            if (! $cancelSale) {
+                return response()->json(false, 200);
+            }
+
+            return response()->json(true, 200);
         } catch (Exception $ex) {
             return response()->json([
                 'message' => $ex
