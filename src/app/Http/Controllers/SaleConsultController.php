@@ -30,7 +30,7 @@ class SaleConsultController extends Controller
             return response()->json($this->saleService->getById($saleId), 200);
         } catch (Exception $ex) {
             return response()->json([
-                'message' => $ex
+                'message' => $ex->getMessage()
             ], 404);
         }
     }

@@ -30,7 +30,7 @@ class SalesListController extends Controller
             return response()->json($this->saleService->get(), 200);
         } catch (Exception $ex) {
             return response()->json([
-                'message' => $ex
+                'message' => $ex->getMessage()
             ], 404);
         }
     }

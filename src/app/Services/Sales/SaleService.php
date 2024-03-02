@@ -7,6 +7,7 @@ use App\Repositories\Products\Contracts\ProductRepositoryContract;
 use App\Services\Sales\Contracts\SaleServiceContract;
 use App\Repositories\Sales\Contracts\SaleRepositoryContract;
 use App\Repositories\SaleItems\Contracts\SaleItemsRepositoryContract;
+use Exception;
 
 class SaleService implements SaleServiceContract
 {
@@ -55,11 +56,11 @@ class SaleService implements SaleServiceContract
      */
     public function create(array $params): array
     {
-        $amount = $this->sumProductAmount($params);
+        $amount = $this->sumProductAmount($params['products']);
 
         $sale = $this->saleRepository->store(['amount' => $amount])->toArray();
 
-        $this->saleItems($params, $sale['sale_id']);
+        $this->saleItems($params['products'], $sale['sale_id']);
 
         return $sale;
     }
@@ -95,6 +96,18 @@ class SaleService implements SaleServiceContract
         return true;
     }
 
+    public function addProduct(string $saleId, array $params): array
+    {
+        $sale = $this->getById($saleId);
+
+        if (empty($sale))
+            return [];
+
+       $this->saleItems($params['products'], $saleId);
+
+        return $this->getById($saleId);
+    }
+
     /**
      * @param array $params
      * @return integer
@@ -112,15 +125,15 @@ class SaleService implements SaleServiceContract
 
     /**
      * @param array $params
-     * @param string $sale_id
+     * @param string $saleId
      * @return void
      */
-    private function saleItems(array $params, string $sale_id): void
+    private function saleItems(array $params, string $saleId): void
     {
         foreach ($params as $key => $val) {
             $this->saleItemRepository->store([
                 'product_id' => $val['product_id'],
-                'sale_id' => $sale_id
+                'sale_id' => $saleId
             ]);
         }
     }

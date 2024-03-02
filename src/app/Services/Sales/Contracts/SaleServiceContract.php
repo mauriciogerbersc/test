@@ -11,4 +11,6 @@ interface SaleServiceContract
     public function getById(string $saleId): array;
 
     public function cancelSale(string $saleId): ?bool;
+
+    public function addProduct(string $saleId, array $params): array;
 }
