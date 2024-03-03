@@ -27,7 +27,7 @@ Route::group(['prefix' =>  'product'], function() {
 Route::group(['prefix' =>  'sales'], function() {
     Route::get('/', SalesListController::class)->name('sales.all');
     Route::post('/', SalesStoreController::class)->name('sales.store');
-    Route::get('/{sale_id}', SaleConsultController::class);
-    Route::delete('/{sale_id}', SaleCancelController::class);
-    Route::put('/{sale_id}', SaleUpdateProductsController::class);
+    Route::get('/{sale_id}', SaleConsultController::class)->name('sales.getById');
+    Route::delete('/{sale_id}', SaleCancelController::class)->name('sales.cancel');
+    Route::put('/{sale_id}', SaleUpdateProductsController::class)->name('sales.newProduct');
 });

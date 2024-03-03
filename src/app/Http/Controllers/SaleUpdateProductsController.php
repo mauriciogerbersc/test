@@ -25,7 +25,7 @@ class SaleUpdateProductsController extends Controller
     /**
      * @return JsonResponse
      */
-    public function __invoke(string $saleId, Request $request): JsonResponse
+    public function __invoke(string $saleId, UpdateSaleProductRequest $request): JsonResponse
     {
         try {
             return response()->json($this->saleService->addProduct($saleId, $request->all()), 200);
